@@ -192,3 +192,22 @@ export interface Usage {
     { input_tokens: number; output_tokens: number; cost_usd: number; calls: number }
   >;
 }
+
+export interface HookResult {
+  hook_type: string;
+  strength: number;
+  length_words: number;
+  has_question: boolean;
+  addresses_viewer: boolean;
+  curiosity_markers: number;
+  suggestions: string[];
+}
+
+export interface TranscriptResult {
+  title: string;
+  channel: string;
+  platform: string;
+  source: string;
+  word_count: number;
+  transcript: string;
+}

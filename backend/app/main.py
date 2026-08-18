@@ -17,7 +17,7 @@ from fastapi.responses import JSONResponse
 
 from app.config import get_settings
 from app.jobs import build_job_manager
-from app.routers import analyses, health, me, projects, scripts, usage
+from app.routers import analyses, health, me, projects, scripts, tools, usage
 from app.store import build_store
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
@@ -64,6 +64,7 @@ def create_app() -> FastAPI:
     app.include_router(projects.router, prefix=prefix)
     app.include_router(scripts.router, prefix=prefix)
     app.include_router(usage.router, prefix=prefix)
+    app.include_router(tools.router, prefix=prefix)  # public, no-auth utility tools
 
     _install_error_handlers(app)
     return app

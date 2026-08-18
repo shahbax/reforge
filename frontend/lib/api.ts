@@ -5,10 +5,13 @@
 import { supabase } from "./supabase";
 import type {
   AnalysisView,
+  HookResult,
   Me,
+  OriginalityReport,
   ProjectSummary,
   ScriptControls,
   ScriptView,
+  TranscriptResult,
   Usage,
 } from "./types";
 
@@ -95,6 +98,14 @@ export const api = {
     }),
   exportScript: (id: string, format: "md" | "txt" = "md") =>
     downloadText(`/projects/${id}/export?format=${format}`, `reforge-script-${id.slice(0, 8)}.${format}`),
+
+  // Public tools (no auth required)
+  originalityTool: (source: string, generated: string) =>
+    req<OriginalityReport>("/tools/originality", { method: "POST", body: JSON.stringify({ source, generated }) }),
+  hookTool: (text: string) =>
+    req<HookResult>("/tools/hook", { method: "POST", body: JSON.stringify({ text }) }),
+  transcriptTool: (url: string) =>
+    req<TranscriptResult>("/tools/transcript", { method: "POST", body: JSON.stringify({ url }) }),
 };
 
 /** Poll a fetcher until `done` returns true (or attempts run out). */

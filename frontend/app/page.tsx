@@ -16,6 +16,12 @@ const FEATURES = [
   { t: "Research-grounded", d: "Fact / claim / opinion separation for factual niches, so your script doesn't hallucinate.", tone: "neutral" as const },
 ];
 
+const PLANS = [
+  { name: "Free", price: "$0", credits: "5 credits / month", featured: false, features: ["Full analyze → script pipeline", "Viral DNA + Originality Guard", "All free tools"] },
+  { name: "Creator", price: "$19", credits: "60 credits / month", featured: true, features: ["Everything in Free", "All niches + tones", "Markdown / text exports", "Priority processing"] },
+  { name: "Pro", price: "$39", credits: "200 credits / month", featured: false, features: ["Everything in Creator", "Deeper research mode", "Higher limits", "Channel analysis (soon)"] },
+];
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const jsonLd = {
@@ -74,7 +80,8 @@ export default function Landing() {
       <header className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
         <Logo />
         <div className="flex items-center gap-2">
-          <Button href="/dashboard" variant="ghost" size="sm">Dashboard</Button>
+          <Button href="/tools" variant="ghost" size="sm">Free tools</Button>
+          <Link href="#pricing" className="hidden px-3 py-2 text-sm text-muted hover:text-foreground sm:block">Pricing</Link>
           <Button href="/dashboard" size="sm">Open app</Button>
         </div>
       </header>
@@ -138,6 +145,37 @@ export default function Landing() {
             guarantee against copyright claims.
           </p>
         </div>
+      </section>
+
+      {/* Pricing */}
+      <section id="pricing" className="mx-auto max-w-6xl px-5 pb-24">
+        <h2 className="mb-2 text-center text-2xl font-semibold tracking-tight">Simple pricing</h2>
+        <p className="mb-8 text-center text-muted">
+          Start free. Upgrade when you&apos;re publishing regularly. <span className="text-foreground">Annual plans save 2 months.</span>
+        </p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {PLANS.map((p) => (
+            <Card key={p.name} className={p.featured ? "border-accent/40 ring-1 ring-accent/30" : ""}>
+              {p.featured && <div className="mb-2"><Badge tone="accent">Most popular</Badge></div>}
+              <h3 className="text-lg font-semibold">{p.name}</h3>
+              <div className="mt-1 mb-1 text-3xl font-bold">
+                {p.price}
+                {p.price !== "$0" && <span className="text-base font-normal text-muted-2">/mo</span>}
+              </div>
+              <div className="mb-4 text-sm text-muted">{p.credits}</div>
+              <ul className="mb-5 space-y-1.5 text-sm">
+                {p.features.map((f) => (
+                  <li key={f} className="flex gap-2 text-muted"><span className="text-success">✓</span>{f}</li>
+                ))}
+              </ul>
+              <Button href="/dashboard" variant={p.featured ? "primary" : "outline"} className="w-full">Start free</Button>
+            </Card>
+          ))}
+        </div>
+        <p className="mt-6 text-center text-xs text-muted-2">
+          Need bulk or agency features? <span className="text-muted">Agency — $99/mo.</span> Every plan includes the
+          Originality Guard — your safeguard against YouTube&apos;s inauthentic-content demonetization.
+        </p>
       </section>
 
       <footer className="border-t border-line">

@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     # Limits / cost control
     max_video_duration_seconds: int = 3600
     max_upload_mb: int = 500
-    free_plan_credits: int = 2
+    free_plan_credits: int = 5
     default_transcript_language: str = "en"
 
     @property
