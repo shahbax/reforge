@@ -78,6 +78,31 @@ body {
 @keyframes spin { to { transform: rotate(360deg); } }
 .spin { animation: spin 0.8s linear infinite; }
 
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.floaty { animation: floaty 7s ease-in-out infinite; }
+
+@keyframes blink { 50% { opacity: 0; } }
+.blink { animation: blink 1s step-end infinite; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.fade-up { animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes growPill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Subtle dotted grid backdrop for premium sections */
+.grid-bg {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Glass card for the product preview */
+.glass {
+  background: linear-gradient(180deg, rgba(23, 23, 35, 0.9), rgba(16, 16, 25, 0.9));
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  backdrop-filter: blur(8px);
+}
+
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 999px; }
 ::-webkit-scrollbar-track { background: transparent; }
