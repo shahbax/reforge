@@ -20,8 +20,8 @@ export function ScriptResult({
             <p className="text-xs text-muted-2">{script.word_count} words</p>
           </div>
           <div className="flex gap-2">
-            <Button href={api.exportUrl(projectId, "md")} variant="outline" size="sm">Export .md</Button>
-            <Button href={api.exportUrl(projectId, "txt")} variant="ghost" size="sm">.txt</Button>
+            <Button onClick={() => api.exportScript(projectId, "md")} variant="outline" size="sm">Export .md</Button>
+            <Button onClick={() => api.exportScript(projectId, "txt")} variant="ghost" size="sm">.txt</Button>
           </div>
         </div>
         <div className="space-y-3">

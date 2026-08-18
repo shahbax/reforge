@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useAuth } from "./AuthProvider";
 import { Logo } from "./Logo";
 import { Badge, Button } from "./ui";
 
 export function TopNav() {
+  const router = useRouter();
+  const { user, signOut } = useAuth();
   const [credits, setCredits] = useState<number | null>(null);
 
   async function refresh() {
@@ -19,11 +24,16 @@ export function TopNav() {
 
   useEffect(() => {
     refresh();
-  }, []);
+  }, [user]);
 
   async function topUp() {
     await api.refillCredits(25);
     refresh();
+  }
+
+  async function handleSignOut() {
+    await signOut();
+    router.replace("/login");
   }
 
   return (
@@ -41,7 +51,12 @@ export function TopNav() {
               <Badge tone={credits > 0 ? "accent" : "danger"}>{credits} credits</Badge>
             </button>
           )}
-          <Button href="/dashboard" size="sm">New analysis</Button>
+          {supabaseEnabled && user && (
+            <>
+              <span className="hidden max-w-[12rem] truncate text-sm text-muted sm:block">{user.email}</span>
+              <Button variant="ghost" size="sm" onClick={handleSignOut}>Sign out</Button>
+            </>
+          )}
         </div>
       </div>
     </header>

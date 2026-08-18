@@ -5,7 +5,9 @@ import Link from "next/link";
 import { api, ApiError } from "@/lib/api";
 import type { AnalysisView, ScriptControls, ScriptView } from "@/lib/types";
 import { TopNav } from "@/components/TopNav";
-import { Badge, Button, Card, StatusBadge } from "@/components/ui";
+import { useRequireAuth } from "@/components/AuthProvider";
+import { supabaseEnabled } from "@/lib/supabase";
+import { Badge, Button, Card, Spinner, StatusBadge } from "@/components/ui";
 import { StageProgress } from "@/components/StageProgress";
 import { ViralDnaReport } from "@/components/ViralDnaReport";
 import { ConceptPicker } from "@/components/ConceptPicker";
@@ -31,6 +33,7 @@ function SectionTitle({ n, title, sub }: { n: string; title: string; sub?: strin
 
 export default function AnalysisWorkspace({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  const { user: authUser, loading: authLoading } = useRequireAuth();
   const [analysis, setAnalysis] = useState<AnalysisView | null>(null);
   const [scriptView, setScriptView] = useState<ScriptView | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
@@ -46,6 +49,8 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
 
   // Poll the analysis job until it settles.
   useEffect(() => {
+    if (authLoading) return;
+    if (supabaseEnabled && !authUser) return;
     async function tick() {
       try {
         const a = await api.getAnalysis(id);
@@ -111,6 +116,14 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
   const analysisFailed = analysis?.status === "FAILED";
   const scriptStatus = scriptView?.status ?? null;
   const scriptDone = scriptStatus === "COMPLETED";
+
+  if (authLoading)
+    return (
+      <div className="grid min-h-screen place-items-center bg-background">
+        <Spinner className="h-6 w-6" />
+      </div>
+    );
+  if (supabaseEnabled && !authUser) return null;
 
   return (
     <>

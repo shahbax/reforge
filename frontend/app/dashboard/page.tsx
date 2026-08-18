@@ -6,10 +6,21 @@ import Link from "next/link";
 import { api, ApiError } from "@/lib/api";
 import type { ProjectSummary, Usage } from "@/lib/types";
 import { TopNav } from "@/components/TopNav";
+import { useRequireAuth } from "@/components/AuthProvider";
+import { supabaseEnabled } from "@/lib/supabase";
 import { Badge, Button, Card, Spinner, StatusBadge, TextInput } from "@/components/ui";
+
+function FullPageLoader() {
+  return (
+    <div className="grid min-h-screen place-items-center bg-background">
+      <Spinner className="h-6 w-6" />
+    </div>
+  );
+}
 
 export default function Dashboard() {
   const router = useRouter();
+  const { user: authUser, loading: authLoading } = useRequireAuth();
   const [url, setUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,8 +34,10 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    if (authLoading) return;
+    if (supabaseEnabled && !authUser) return;
     load();
-  }, []);
+  }, [authLoading, authUser]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -43,6 +56,9 @@ export default function Dashboard() {
     await api.deleteProject(id);
     load();
   }
+
+  if (authLoading) return <FullPageLoader />;
+  if (supabaseEnabled && !authUser) return null;
 
   return (
     <>
