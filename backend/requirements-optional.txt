@@ -1,0 +1,6 @@
+# Optional / production integrations. Lazily imported — the app runs without
+# them in development (mock provider + dev-stub ingestion). Install when you
+# configure real keys.
+anthropic>=0.40          # ClaudeProvider (set AI_PROVIDER=claude + ANTHROPIC_API_KEY)
+yt-dlp>=2024.8.6         # real video/caption ingestion
+openai>=1.40             # embeddings for the originality semantic signal (optional)
