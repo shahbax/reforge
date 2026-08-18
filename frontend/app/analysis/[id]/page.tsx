@@ -41,6 +41,7 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
   const [generating, setGenerating] = useState(false);
   const [rewriting, setRewriting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [outOfCredits, setOutOfCredits] = useState(false);
   const alive = useRef(true);
 
   useEffect(() => {
@@ -79,6 +80,7 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
       if (selected === null) return;
       setGenerating(true);
       setError(null);
+      setOutOfCredits(false);
       try {
         await api.startScript(id, selected, controls);
         while (alive.current) {
@@ -89,7 +91,8 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
           await sleep(900);
         }
       } catch (e) {
-        setError(e instanceof ApiError ? e.message : "Script generation failed");
+        if (e instanceof ApiError && e.status === 402) setOutOfCredits(true);
+        else setError(e instanceof ApiError ? e.message : "Script generation failed");
       } finally {
         if (alive.current) setGenerating(false);
       }
@@ -198,6 +201,23 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
             <SectionTitle n="04" title="Original script" sub="Grounded in a fresh angle, audited for originality." />
             {!scriptDone && (
               <ScriptControlsForm disabled={selected === null || generating} generating={generating} onGenerate={generate} />
+            )}
+
+            {outOfCredits && !scriptDone && (
+              <Card className="mt-4 border-warning/40 bg-warning/5">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <div className="font-medium text-amber-200">You&apos;re out of credits</div>
+                    <p className="mt-0.5 text-sm text-muted">
+                      Each script generation (including regenerating from another concept) uses 1 credit. Refill to keep going, or upgrade your plan.
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 gap-2">
+                    <Button size="sm" onClick={async () => { await api.refillCredits(50); setOutOfCredits(false); }}>Refill dev credits</Button>
+                    <Button href="/#pricing" variant="outline" size="sm">Upgrade</Button>
+                  </div>
+                </div>
+              </Card>
             )}
 
             {generating && !scriptDone && (

@@ -6,9 +6,44 @@ realistically. Production uses a real provider instead.
 """
 from __future__ import annotations
 
+import re
+
 
 def fixture_for(schema_name: str, user_prompt: str) -> dict:
-    return _FIXTURES.get(schema_name, {})
+    data = _FIXTURES.get(schema_name, {})
+    # Personalize demo output to the chosen concept so regenerating from a
+    # different concept visibly changes the script (real providers do this
+    # naturally; the mock otherwise returns an identical fixture every time).
+    if schema_name in ("Script", "ProductionPackage"):
+        return _personalize(schema_name, data, user_prompt)
+    return data
+
+
+def _extract(field: str, prompt: str) -> str | None:
+    m = re.search(r'"' + field + r'"\s*:\s*"([^"]{3,160})"', prompt)
+    return m.group(1) if m else None
+
+
+def _personalize(schema_name: str, data: dict, prompt: str) -> dict:
+    title = _extract("title", prompt)  # the chosen concept's title
+    hook = _extract("hook", prompt)    # the chosen concept's hook line
+    if not title:
+        return data
+
+    if schema_name == "Script":
+        data = {**data, "title": title}
+        sections = [dict(s) for s in data.get("sections", [])]
+        if sections and hook:
+            sections[0] = {**sections[0], "content": hook}
+            data["sections"] = sections
+            data["full_text"] = " ".join(s["content"] for s in sections)
+        return data
+
+    if schema_name == "ProductionPackage":
+        titles = [title] + [t for t in data.get("titles", []) if t != title]
+        return {**data, "titles": titles[:3]}
+
+    return data
 
 
 _FIXTURES: dict[str, dict] = {
