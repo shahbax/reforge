@@ -221,9 +221,7 @@ def build_store() -> Store:
 
     settings = get_settings()
     if settings.database_url:
-        # PostgresStore(settings.database_url) — M2 milestone; interface is ready.
-        raise NotImplementedError(
-            "Postgres store not yet implemented; leave DATABASE_URL empty for the "
-            "in-memory dev store (see docs/roadmap.md M2)."
-        )
+        from app.store_postgres import PostgresStore
+
+        return PostgresStore(settings.database_url)
     return InMemoryStore()

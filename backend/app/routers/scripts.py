@@ -57,6 +57,7 @@ def start_script(
     project.script_status = JobStatus.QUEUED
     project.script_stage_detail = "queued"
     project.script_error_reason = None
+    store.touch(project)  # persist concept/controls selection before the job reads it
     jobs.enqueue_script(project.id)
     return {
         "script_job": "queued",
