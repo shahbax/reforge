@@ -8,6 +8,8 @@ import os
 os.environ["AI_PROVIDER"] = "mock"
 os.environ["JOBS_INLINE"] = "true"
 os.environ["SUPABASE_JWT_SECRET"] = ""
+os.environ["SUPABASE_URL"] = ""
+os.environ["SUPABASE_ANON_KEY"] = ""
 os.environ["ENVIRONMENT"] = "development"
 os.environ["DATABASE_URL"] = ""
 os.environ["REDIS_URL"] = ""
