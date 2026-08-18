@@ -83,6 +83,11 @@ export function OriginalityPanel({
         </div>
       </div>
 
+      <p className="rounded-lg border border-line bg-surface-solid p-2.5 text-xs text-muted">
+        A higher score means your script is more original — which helps you stay clear of YouTube&apos;s
+        reused / inauthentic-content flags. Aim for 70+.
+      </p>
+
       {report.flagged_sections.length > 0 ? (
         <div className="space-y-2">
           <div className="text-sm font-medium">Potentially derivative passages</div>

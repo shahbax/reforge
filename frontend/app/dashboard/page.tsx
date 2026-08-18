@@ -10,6 +10,8 @@ import { useRequireAuth } from "@/components/AuthProvider";
 import { supabaseEnabled } from "@/lib/supabase";
 import { Badge, Button, Card, Spinner, StatusBadge, TextInput } from "@/components/ui";
 
+const EXAMPLE_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
 function FullPageLoader() {
   return (
     <div className="grid min-h-screen place-items-center bg-background">
@@ -39,17 +41,21 @@ export default function Dashboard() {
     load();
   }, [authLoading, authUser]);
 
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
+  async function startAnalysis(targetUrl: string) {
     setError(null);
     setSubmitting(true);
     try {
-      const { project_id } = await api.createAnalysis(url.trim());
+      const { project_id } = await api.createAnalysis(targetUrl.trim());
       router.push(`/analysis/${project_id}`);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Something went wrong");
       setSubmitting(false);
     }
+  }
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    startAnalysis(url);
   }
 
   async function remove(id: string) {
@@ -85,11 +91,41 @@ export default function Dashboard() {
               </Button>
             </form>
             {error && <p className="mt-3 text-sm text-danger">{error}</p>}
-            <p className="mt-3 text-xs text-muted-2">
-              Dev mode uses a mock analysis engine — any valid YouTube URL works without API keys.
-            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => startAnalysis(EXAMPLE_URL)}
+                disabled={submitting}
+                className="text-xs text-accent hover:underline disabled:opacity-50"
+              >
+                ✨ Try an example (no URL needed)
+              </button>
+              <span className="text-xs text-muted-2">— not sure what to paste? Start here.</span>
+            </div>
           </Card>
         </section>
+
+        {projects !== null && projects.length === 0 && (
+          <section className="mb-10">
+            <div className="rounded-2xl border border-line bg-surface p-5">
+              <h2 className="mb-3 text-sm font-semibold text-muted">How Reforge works</h2>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {[
+                  { n: "1", t: "Paste a video you admire", d: "Any YouTube video that's clearly working in your niche." },
+                  { n: "2", t: "See why it worked", d: "A plain-language breakdown of its hook, structure, and pacing — no jargon left unexplained." },
+                  { n: "3", t: "Get an original script", d: "Pick a fresh angle and get a ready-to-film script, checked for originality." },
+                ].map((s) => (
+                  <div key={s.n} className="flex gap-3">
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-accent/15 text-xs font-semibold text-violet-300">{s.n}</span>
+                    <div>
+                      <div className="text-sm font-medium">{s.t}</div>
+                      <div className="text-sm text-muted">{s.d}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Recent projects */}

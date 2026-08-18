@@ -13,10 +13,44 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+const description =
+  "Reforge reverse-engineers why a video went viral and helps you create genuinely original scripts — with a built-in originality audit that helps you avoid YouTube's inauthentic-content penalties.";
+
 export const metadata: Metadata = {
-  title: "Reforge — Viral Content Intelligence",
-  description:
-    "Reverse-engineer why a video worked, then create something genuinely original — with a built-in originality audit.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Reforge — Reverse-Engineer Viral Videos into Original Scripts",
+    template: "%s · Reforge",
+  },
+  description,
+  applicationName: "Reforge",
+  keywords: [
+    "youtube script generator",
+    "faceless youtube automation",
+    "viral video analyzer",
+    "ai script writer",
+    "youtube content ideas",
+    "video to script",
+    "original content generator",
+    "youtube automation tools",
+    "avoid inauthentic content youtube",
+  ],
+  alternates: { canonical: siteUrl },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "Reforge",
+    title: "Reforge — Reverse-Engineer Viral Videos into Original Scripts",
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Reforge — Reverse-Engineer Viral Videos into Original Scripts",
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

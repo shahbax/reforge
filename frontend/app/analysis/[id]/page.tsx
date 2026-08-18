@@ -14,6 +14,7 @@ import { ConceptPicker } from "@/components/ConceptPicker";
 import { ScriptControlsForm } from "@/components/ScriptControlsForm";
 import { ScriptResult } from "@/components/ScriptResult";
 import { OriginalityPanel } from "@/components/OriginalityPanel";
+import { HowToMakeVideo } from "@/components/HowToMakeVideo";
 
 const ANALYSIS_TERMINAL = ["AWAITING_CONCEPT_SELECTION", "FAILED", "COMPLETED"];
 const SCRIPT_TERMINAL = ["COMPLETED", "FAILED"];
@@ -71,7 +72,7 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
       if (alive.current) setTimeout(tick, 900);
     }
     tick();
-  }, [id]);
+  }, [id, authLoading, authUser]);
 
   const generate = useCallback(
     async (controls: Partial<ScriptControls>) => {
@@ -213,8 +214,9 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
 
             {scriptDone && scriptView?.script && (
               <div className="mt-4 grid gap-4 lg:grid-cols-5">
-                <div className="lg:col-span-3">
+                <div className="space-y-4 lg:col-span-3">
                   <ScriptResult projectId={id} script={scriptView.script} pkg={scriptView.production_package} />
+                  <HowToMakeVideo pkg={scriptView.production_package} originality={scriptView.originality_report} />
                 </div>
                 <div className="lg:col-span-2">
                   {scriptView.originality_report && (

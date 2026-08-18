@@ -16,9 +16,61 @@ const FEATURES = [
   { t: "Research-grounded", d: "Fact / claim / opinion separation for factual niches, so your script doesn't hallucinate.", tone: "neutral" as const },
 ];
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      name: "Reforge",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      url: siteUrl,
+      description:
+        "Reverse-engineer why a video went viral and create genuinely original scripts, with a built-in originality audit to help avoid YouTube's inauthentic-content penalties.",
+      offers: [
+        { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" },
+        { "@type": "Offer", name: "Creator", price: "19", priceCurrency: "USD" },
+        { "@type": "Offer", name: "Pro", price: "39", priceCurrency: "USD" },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Does Reforge copy the original video?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. Reforge extracts the reusable mechanics (hook type, structure, pacing) and generates original concepts and scripts, then audits similarity against the source so your output isn't derivative.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will this help me avoid YouTube's inauthentic-content penalties?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Reforge is built to produce original, varied, human-editable scripts and gives every script an originality score. It is a tool to help you create original content, not a guarantee against policy actions.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do I need to be a video editor to use it?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. Paste a YouTube URL, read the plain-language breakdown, pick a concept, and get a ready-to-film script plus titles and thumbnail prompts.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function Landing() {
   return (
     <div className="bg-aurora min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <header className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
         <Logo />
         <div className="flex items-center gap-2">

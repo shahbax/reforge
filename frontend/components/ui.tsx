@@ -150,3 +150,21 @@ export function StatusBadge({ status }: { status: JobStatus | null | undefined }
 export function bandTone(band: Band): "success" | "warning" | "danger" {
   return band === "LOW" ? "success" : band === "MODERATE" ? "warning" : "danger";
 }
+
+/** A small "?" that reveals a plain-language explanation on hover/tap. */
+export function InfoTip({ text }: { text: string }) {
+  return (
+    <span className="group relative ml-1 inline-flex align-middle">
+      <span
+        tabIndex={0}
+        className="grid h-4 w-4 cursor-help place-items-center rounded-full border border-line-strong text-[10px] text-muted-2 hover:text-foreground focus:outline-none"
+        aria-label={text}
+      >
+        ?
+      </span>
+      <span className="pointer-events-none absolute bottom-full left-1/2 z-30 mb-1.5 w-56 -translate-x-1/2 rounded-lg border border-line-strong bg-surface-solid p-2.5 text-xs font-normal normal-case text-muted opacity-0 shadow-xl transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+        {text}
+      </span>
+    </span>
+  );
+}
