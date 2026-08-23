@@ -1,4 +1,4 @@
-// Typed client for the Reforge backend.
+// Typed client for the ViralReverse backend.
 // In dev the backend runs in dev-auth mode (no login) and attributes requests to
 // a single dev user, so no token is needed yet — Supabase auth is a later milestone.
 
@@ -97,7 +97,7 @@ export const api = {
       body: JSON.stringify({ target }),
     }),
   exportScript: (id: string, format: "md" | "txt" = "md") =>
-    downloadText(`/projects/${id}/export?format=${format}`, `reforge-script-${id.slice(0, 8)}.${format}`),
+    downloadText(`/projects/${id}/export?format=${format}`, `viralreverse-script-${id.slice(0, 8)}.${format}`),
 
   // Public tools (no auth required)
   originalityTool: (source: string, generated: string) =>

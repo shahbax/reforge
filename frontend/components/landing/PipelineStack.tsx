@@ -40,7 +40,7 @@ export function PipelineStack() {
                 <h3 className="font-semibold">{s.t}</h3>
                 {s.accent && (
                   <span className="rounded-full border border-accent/30 bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-violet-200">
-                    only in Reforge
+                    only in ViralReverse
                   </span>
                 )}
               </div>

@@ -20,7 +20,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "SoftwareApplication",
-      name: "Reforge",
+      name: "ViralReverse",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web",
       url: siteUrl,
@@ -34,8 +34,8 @@ const jsonLd = {
     {
       "@type": "FAQPage",
       mainEntity: [
-        { "@type": "Question", name: "Does Reforge copy the original video?", acceptedAnswer: { "@type": "Answer", text: "No. Reforge extracts the reusable mechanics (hook type, structure, pacing) and generates original concepts and scripts, then audits similarity against the source so your output isn't derivative." } },
-        { "@type": "Question", name: "Will this help me avoid YouTube's inauthentic-content penalties?", acceptedAnswer: { "@type": "Answer", text: "Reforge is built to produce original, varied, human-editable scripts and gives every script an originality score. It is a tool to help you create original content, not a guarantee against policy actions." } },
+        { "@type": "Question", name: "Does ViralReverse copy the original video?", acceptedAnswer: { "@type": "Answer", text: "No. ViralReverse extracts the reusable mechanics (hook type, structure, pacing) and generates original concepts and scripts, then audits similarity against the source so your output isn't derivative." } },
+        { "@type": "Question", name: "Will this help me avoid YouTube's inauthentic-content penalties?", acceptedAnswer: { "@type": "Answer", text: "ViralReverse is built to produce original, varied, human-editable scripts and gives every script an originality score. It is a tool to help you create original content, not a guarantee against policy actions." } },
         { "@type": "Question", name: "Do I need to be a video editor to use it?", acceptedAnswer: { "@type": "Answer", text: "No. Paste a YouTube URL, read the plain-language breakdown, pick a concept, and get a ready-to-film script plus titles and thumbnail prompts." } },
       ],
     },
@@ -59,7 +59,7 @@ export default function Landing() {
         <Logo />
         <nav className="hidden items-center gap-6 md:flex">
           <Link href="#how" className="text-sm text-muted hover:text-foreground">How it works</Link>
-          <Link href="#why" className="text-sm text-muted hover:text-foreground">Why Reforge</Link>
+          <Link href="#why" className="text-sm text-muted hover:text-foreground">Why ViralReverse</Link>
           <Link href="/tools" className="text-sm text-muted hover:text-foreground">Free tools</Link>
           <Link href="#pricing" className="text-sm text-muted hover:text-foreground">Pricing</Link>
         </nav>
@@ -79,7 +79,7 @@ export default function Landing() {
             Make something <span className="text-gradient">original</span>.
           </h1>
           <p className="mt-6 max-w-xl text-pretty text-lg text-muted">
-            Reforge reverse-engineers the mechanics behind any viral video and turns them into a
+            ViralReverse reverse-engineers the mechanics behind any viral video and turns them into a
             genuinely original, ready-to-film script — with an originality score that keeps you off
             the wrong side of YouTube&apos;s inauthentic-content rules.
           </p>
@@ -101,12 +101,12 @@ export default function Landing() {
       {/* Positioning band */}
       <section id="why" className="border-y border-line grid-bg">
         <div className="mx-auto max-w-4xl px-5 py-20 text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">What Reforge actually is</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">What ViralReverse actually is</div>
           <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
             Not a paraphraser. A viral-intelligence engine.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted">
-            Most tools either find viral videos or spit out template scripts. Reforge does the hard
+            Most tools either find viral videos or spit out template scripts. ViralReverse does the hard
             middle — it understands the mechanics, engineers divergent original angles, and audits the
             result so what you publish is yours.
           </p>
@@ -197,7 +197,7 @@ export default function Landing() {
             <Link href="#pricing" className="hover:text-foreground">Pricing</Link>
             <Link href="/login" className="hover:text-foreground">Log in</Link>
           </nav>
-          <span className="text-sm text-muted-2">© {new Date().getFullYear()} Reforge</span>
+          <span className="text-sm text-muted-2">© {new Date().getFullYear()} ViralReverse</span>
         </div>
       </footer>
     </div>

@@ -16,16 +16,16 @@ const geistMono = Geist_Mono({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const description =
-  "Reforge reverse-engineers why a video went viral and helps you create genuinely original scripts — with a built-in originality audit that helps you avoid YouTube's inauthentic-content penalties.";
+  "ViralReverse reverse-engineers why a video went viral and helps you create genuinely original scripts — with a built-in originality audit that helps you avoid YouTube's inauthentic-content penalties.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Reforge — Reverse-Engineer Viral Videos into Original Scripts",
-    template: "%s · Reforge",
+    default: "ViralReverse — Reverse-Engineer Viral Videos into Original Scripts",
+    template: "%s · ViralReverse",
   },
   description,
-  applicationName: "Reforge",
+  applicationName: "ViralReverse",
   keywords: [
     "youtube script generator",
     "faceless youtube automation",
@@ -42,13 +42,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: "Reforge",
-    title: "Reforge — Reverse-Engineer Viral Videos into Original Scripts",
+    siteName: "ViralReverse",
+    title: "ViralReverse — Reverse-Engineer Viral Videos into Original Scripts",
     description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Reforge — Reverse-Engineer Viral Videos into Original Scripts",
+    title: "ViralReverse — Reverse-Engineer Viral Videos into Original Scripts",
     description,
   },
 };

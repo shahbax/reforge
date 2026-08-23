@@ -20,9 +20,9 @@ log = logging.getLogger("reforge.billing")
 
 # plan key -> (display name, monthly price in cents, monthly credit allotment)
 PLANS: dict[str, dict] = {
-    "creator": {"name": "Reforge Creator", "amount": 1900, "credits": 60},
-    "pro": {"name": "Reforge Pro", "amount": 3900, "credits": 200},
-    "agency": {"name": "Reforge Agency", "amount": 9900, "credits": 400},
+    "creator": {"name": "ViralReverse Creator", "amount": 1900, "credits": 60},
+    "pro": {"name": "ViralReverse Pro", "amount": 3900, "credits": 200},
+    "agency": {"name": "ViralReverse Agency", "amount": 9900, "credits": 400},
 }
 
 
@@ -38,7 +38,7 @@ def _client():
 
 def _price_id(stripe, plan_key: str) -> str:
     plan = PLANS[plan_key]
-    lookup = f"reforge_{plan_key}_monthly"
+    lookup = f"viralreverse_{plan_key}_monthly"
     existing = stripe.Price.list(lookup_keys=[lookup], limit=1)
     if existing.data:
         return existing.data[0].id

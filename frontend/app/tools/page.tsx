@@ -18,7 +18,7 @@ const TOOLS = [
 
 export default function ToolsIndex() {
   return (
-    <ToolShell title="Free creator tools" subtitle="Handy, no-signup tools for YouTube creators — powered by the same engine behind Reforge.">
+    <ToolShell title="Free creator tools" subtitle="Handy, no-signup tools for YouTube creators — powered by the same engine behind ViralReverse.">
       <div className="grid gap-3">
         {TOOLS.map((x) => (
           <Link key={x.href} href={x.href}>

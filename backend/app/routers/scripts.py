@@ -97,7 +97,7 @@ def export_script(
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="No script to export")
 
     document = _render_markdown(project) if fmt == "md" else _render_plain(project)
-    filename = f"reforge-script-{project.id[:8]}.{fmt}"
+    filename = f"viralreverse-script-{project.id[:8]}.{fmt}"
     return PlainTextResponse(
         content=document,
         media_type="text/markdown" if fmt == "md" else "text/plain",

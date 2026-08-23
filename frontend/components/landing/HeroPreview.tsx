@@ -78,7 +78,7 @@ export function HeroPreview() {
         <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
         <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
         <div className="ml-2 flex-1 truncate rounded-md bg-surface-solid px-2 py-1 text-xs text-muted-2">
-          reforge.app/analysis — youtube.com/watch?v=…
+          viralreverse.com/analysis — youtube.com/watch?v=…
         </div>
       </div>
 

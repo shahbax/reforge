@@ -70,7 +70,7 @@ export function OriginalityPanel({
           <h3 className="text-lg font-semibold">Originality Guard</h3>
           <p className="text-xs text-muted-2">Source vs. generated similarity</p>
         </div>
-        <Badge tone="accent">Reforge exclusive</Badge>
+        <Badge tone="accent">ViralReverse exclusive</Badge>
       </div>
 
       <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center">

@@ -35,7 +35,7 @@ export function ScriptResult({
         <div className="flex flex-wrap items-start justify-between gap-3 border-b border-line pb-4">
           <div className="min-w-0">
             <div className="mb-1 flex items-center gap-2">
-              <span className="grid h-6 w-6 place-items-center rounded-md bg-gradient-to-br from-violet-500 to-cyan-400 text-[11px] font-bold text-black">R</span>
+              <span className="grid h-6 w-6 place-items-center rounded-md bg-gradient-to-br from-violet-500 to-cyan-400 text-[11px] font-bold text-black">VR</span>
               <span className="text-[11px] uppercase tracking-wide text-muted-2">Your original script</span>
             </div>
             <h3 className="text-xl font-semibold leading-snug">{script.title}</h3>

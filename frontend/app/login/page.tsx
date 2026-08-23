@@ -74,7 +74,7 @@ export default function LoginPage() {
               {mode === "signin" ? "Welcome back" : "Create your account"}
             </h1>
             <p className="mt-1 text-sm text-muted">
-              {mode === "signin" ? "Sign in to your Reforge workspace." : "Start reverse-engineering virality."}
+              {mode === "signin" ? "Sign in to your ViralReverse workspace." : "Start reverse-engineering virality."}
             </p>
           </div>
 

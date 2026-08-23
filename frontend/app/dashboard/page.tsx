@@ -87,7 +87,7 @@ export default function Dashboard() {
         <section className="mb-10">
           <h1 className="mb-1 text-2xl font-semibold tracking-tight">New analysis</h1>
           <p className="mb-4 text-sm text-muted">
-            Paste a YouTube URL. Reforge extracts the Viral DNA and generates original concepts.
+            Paste a YouTube URL. ViralReverse extracts the Viral DNA and generates original concepts.
           </p>
           <Card>
             <form onSubmit={submit} className="flex flex-col gap-3 sm:flex-row">
@@ -120,7 +120,7 @@ export default function Dashboard() {
         {projects !== null && projects.length === 0 && (
           <section className="mb-10">
             <div className="rounded-2xl border border-line bg-surface p-5">
-              <h2 className="mb-3 text-sm font-semibold text-muted">How Reforge works</h2>
+              <h2 className="mb-3 text-sm font-semibold text-muted">How ViralReverse works</h2>
               <div className="grid gap-4 sm:grid-cols-3">
                 {[
                   { n: "1", t: "Paste a video you admire", d: "Any YouTube video that's clearly working in your niche." },
