@@ -106,7 +106,17 @@ export const api = {
     req<HookResult>("/tools/hook", { method: "POST", body: JSON.stringify({ text }) }),
   transcriptTool: (url: string) =>
     req<TranscriptResult>("/tools/transcript", { method: "POST", body: JSON.stringify({ url }) }),
+
+  // Billing
+  createCheckout: (plan: string) =>
+    req<{ url: string }>("/billing/checkout", { method: "POST", body: JSON.stringify({ plan }) }),
 };
+
+/** Start Stripe Checkout for a plan and redirect the browser to it. */
+export async function startCheckout(plan: string): Promise<void> {
+  const { url } = await api.createCheckout(plan);
+  window.location.href = url;
+}
 
 /** Poll a fetcher until `done` returns true (or attempts run out). */
 export async function poll<T>(

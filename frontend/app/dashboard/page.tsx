@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { api, ApiError } from "@/lib/api";
+import { api, ApiError, startCheckout } from "@/lib/api";
 import type { ProjectSummary, Usage } from "@/lib/types";
 import { TopNav } from "@/components/TopNav";
 import { useRequireAuth } from "@/components/AuthProvider";
@@ -28,6 +28,13 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [projects, setProjects] = useState<ProjectSummary[] | null>(null);
   const [usage, setUsage] = useState<Usage | null>(null);
+  const [checkoutMsg, setCheckoutMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search).get("checkout");
+    if (p === "success") setCheckoutMsg("🎉 Payment received — your credits will update within a few seconds.");
+    else if (p === "cancel") setCheckoutMsg("Checkout canceled — no charge was made.");
+  }, []);
 
   async function load() {
     const [p, u] = await Promise.allSettled([api.listProjects(), api.usage()]);
@@ -70,6 +77,12 @@ export default function Dashboard() {
     <>
       <TopNav />
       <main className="mx-auto max-w-6xl px-5 py-8">
+        {checkoutMsg && (
+          <div className="mb-6 rounded-xl border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-violet-100">
+            {checkoutMsg}
+          </div>
+        )}
+
         {/* New analysis */}
         <section className="mb-10">
           <h1 className="mb-1 text-2xl font-semibold tracking-tight">New analysis</h1>
@@ -195,10 +208,35 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="border-t border-line pt-3">
-                <Button variant="outline" size="sm" onClick={async () => { await api.refillCredits(25); load(); }}>
+                <Button variant="ghost" size="sm" onClick={async () => { await api.refillCredits(25); load(); }}>
                   Refill dev credits
                 </Button>
               </div>
+            </Card>
+
+            <Card className="mt-4 space-y-2.5">
+              <div>
+                <h3 className="font-semibold">Upgrade</h3>
+                <p className="text-xs text-muted-2">More credits, billed monthly. Cancel anytime.</p>
+              </div>
+              {[
+                { plan: "creator", label: "Creator", price: "$19", credits: "60 credits/mo" },
+                { plan: "pro", label: "Pro", price: "$39", credits: "200 credits/mo" },
+                { plan: "agency", label: "Agency", price: "$99", credits: "400 credits/mo" },
+              ].map((p) => (
+                <button
+                  key={p.plan}
+                  onClick={() => startCheckout(p.plan)}
+                  className="flex w-full items-center justify-between rounded-lg border border-line bg-surface-solid px-3 py-2 text-left transition-colors hover:border-accent/50"
+                >
+                  <span className="text-sm">
+                    <span className="font-medium">{p.label}</span>
+                    <span className="text-muted-2"> · {p.credits}</span>
+                  </span>
+                  <span className="text-sm font-semibold text-accent">{p.price}</span>
+                </button>
+              ))}
+              <p className="text-[10px] text-muted-2">Secure checkout via Stripe.</p>
             </Card>
           </section>
         </div>

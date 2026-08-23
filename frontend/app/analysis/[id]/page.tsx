@@ -2,7 +2,7 @@
 
 import { use, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { api, ApiError } from "@/lib/api";
+import { api, ApiError, startCheckout } from "@/lib/api";
 import type { AnalysisView, ScriptControls, ScriptView } from "@/lib/types";
 import { TopNav } from "@/components/TopNav";
 import { useRequireAuth } from "@/components/AuthProvider";
@@ -213,8 +213,8 @@ export default function AnalysisWorkspace({ params }: { params: Promise<{ id: st
                     </p>
                   </div>
                   <div className="flex shrink-0 gap-2">
-                    <Button size="sm" onClick={async () => { await api.refillCredits(50); setOutOfCredits(false); }}>Refill dev credits</Button>
-                    <Button href="/#pricing" variant="outline" size="sm">Upgrade</Button>
+                    <Button size="sm" onClick={() => startCheckout("creator")}>Upgrade to Creator</Button>
+                    <Button variant="outline" size="sm" onClick={async () => { await api.refillCredits(50); setOutOfCredits(false); }}>Refill (dev)</Button>
                   </div>
                 </div>
               </Card>

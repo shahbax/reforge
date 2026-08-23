@@ -103,6 +103,8 @@ class Store(ABC):
     def refund_credits(self, user_id: str, amount: int = 1) -> None: ...
     @abstractmethod
     def set_credits(self, user_id: str, credits: int) -> User: ...
+    @abstractmethod
+    def set_plan(self, user_id: str, plan: str) -> None: ...
 
     # projects
     @abstractmethod
@@ -163,6 +165,12 @@ class InMemoryStore(Store):
             else:
                 user.credits = credits
             return user
+
+    def set_plan(self, user_id: str, plan: str) -> None:
+        with self._lock:
+            user = self._users.get(user_id)
+            if user is not None:
+                user.plan = plan
 
     # ---- projects ----
     def create_project(self, user_id: str, url: str, platform: Platform, external_id: str) -> Project:

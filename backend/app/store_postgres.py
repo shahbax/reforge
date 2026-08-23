@@ -234,6 +234,10 @@ class PostgresStore(Store):
             row = conn.execute(sql, (user_id, credits)).fetchone()
         return _row_to_user(row)
 
+    def set_plan(self, user_id: str, plan: str) -> None:
+        with self._pool.connection() as conn:
+            conn.execute("UPDATE reforge_users SET plan = %s WHERE id = %s", (plan, user_id))
+
     # ---- projects ----
     def create_project(self, user_id: str, url: str, platform: Platform, external_id: str) -> Project:
         project = Project(id=str(uuid.uuid4()), user_id=user_id, url=url, platform=platform, external_id=external_id)

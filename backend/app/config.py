@@ -35,6 +35,12 @@ class Settings(BaseSettings):
     supabase_anon_key: str = ""
     supabase_jwt_secret: str = ""
 
+    # Stripe (billing)
+    stripe_secret_key: str = ""
+    stripe_publishable_key: str = ""
+    stripe_webhook_secret: str = ""
+    frontend_url: str = "http://localhost:3000"
+
     # Limits / cost control
     max_video_duration_seconds: int = 3600
     max_upload_mb: int = 500
