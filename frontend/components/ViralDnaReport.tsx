@@ -46,7 +46,7 @@ export function ViralDnaReport({ dna }: { dna: ViralDNA }) {
   return (
     <div className="space-y-4">
       {/* Hook spotlight */}
-      <Card className="border-accent/25 bg-gradient-to-br from-accent/10 to-transparent">
+      <Card className="glass fade-up border-accent/25 bg-gradient-to-br from-accent/10 to-transparent">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <div className="text-xs uppercase tracking-wide text-muted-2">
@@ -59,6 +59,12 @@ export function ViralDnaReport({ dna }: { dna: ViralDNA }) {
             <div className="text-3xl font-bold text-gradient">{dna.hook.strength}</div>
             <div className="text-xs text-muted-2">hook strength</div>
           </div>
+        </div>
+        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-surface-solid">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
+            style={{ width: `${Math.max(0, Math.min(100, dna.hook.strength))}%` }}
+          />
         </div>
       </Card>
 
